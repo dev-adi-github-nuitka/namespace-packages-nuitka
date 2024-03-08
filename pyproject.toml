@@ -1,0 +1,10 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "namespace-packages-nuitka"
+version = "1.0.0"
+description = "A minimal example for compiling namespace packages with Nuitka"
+requires-python = ">= 3.9"
+
