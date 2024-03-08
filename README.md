@@ -2,6 +2,8 @@
 
 A minimal reproducible example project demonstrating namespace packages in Nuitka
 
+Version info: Python compilation with Nuitka '2.1' on Python '3.9' commercial grade 'not installed'.
+
 ## Instructions for Reproducing
 
 ### Before: Setuptools Compilation
@@ -38,7 +40,7 @@ Begin at root of project
     build-backend = "nuitka.distutils.Build"
     ```
 
-1. Build each project using `python -m build`
+1. Build each project (`.`, `./src/pkg1`, `./src/pkg2`) using `python -m build`
 1. Install each project from the wheels you created
 1. Run `python -c "from main import run; run()"`
 1. Notice you get the following output:
@@ -50,8 +52,8 @@ Begin at root of project
     ModuleNotFoundError: No module named 'shared_ns.thing1'
     ```
 
-1. Now re-install pkg1 with the `--force-reinstall` flag and run  `python -c "from main import run; run()"` again
-1. Notice now `thing2` is unavailable:
+1. Now re-install `pkg1` with the `--force-reinstall` flag and run  `python -c "from main import run; run()"` again
+1. Notice now `pkg2`'s shared namespace (`thing2`) is now unavailable instead of `pkg1` like before:
 
     ```shell
     Traceback (most recent call last):
@@ -64,7 +66,7 @@ Begin at root of project
 
 ### Theory
 
-I think that `shared_ns.cpython-39-darwin.so` is getting overwritten by both pkg1 and pkg2, whichever is installed most recently. Both have the lines:
+I think that `shared_ns.cpython-39-darwin.so` is getting overwritten by both `pkg1` and `pkg2`, whichever is installed most recently. Both have the lines:
 
 ```shell
 creating './namespace-packages-nuitka/src/pkg1/dist/tmp09j_4blr/pkg1-1.0.0-cp39-cp39-macosx_13_0_arm64.whl' and adding 'build/bdist.macosx-13.4-arm64/wheel' to it
@@ -76,7 +78,7 @@ adding 'pkg1-1.0.0.dist-info/top_level.txt'
 adding 'pkg1-1.0.0.dist-info/RECORD'
 ```
 
-The actual build command is:
+The actual build command being used is:
 
 ```shell
 Building: 'shared_ns' with command '['/private/var/folders/sm/krx6g3v56kqdqnws07wg5_000000gn/T/build-env-t_8uv7t3/bin/python', '-m', 'nuitka', '--module', --enable-plugin=pylint-warnings', '--output-dir=/private/var/folders/sm/krx6g3v56kqdqnws07wg5_000000gn/T/build-via-sdist-wo261zre/pkg1-1.0.0/build/lib', '--nofollow-import-to=*.tests', '--remove-output', '--include-package=shared_ns', '/private/var/folders/sm/krx6g3v56kqdqnws07wg5_000000gn/T/build-via-sdist-wo261zre/pkg1-1.0.0/build/lib/shared_ns']'
