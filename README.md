@@ -6,7 +6,7 @@ Version info: Python compilation with Nuitka '2.1' on Python '3.9' commercial gr
 
 ## Instructions for Reproducing
 
-### Before: Setuptools Compilation
+### Before: Setuptools Build
 
 Begin at the root of the project
 
@@ -21,7 +21,7 @@ Begin at the root of the project
     _NamespacePath(['./Code/namespace-packages-nuitka/.venv/lib/python3.9/site-packages/shared_ns'])
     ```
 
-#### After: Nuitka Compilation
+### After: Nuitka Compilation
 
 Begin at root of project
 
