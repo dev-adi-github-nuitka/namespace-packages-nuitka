@@ -13,7 +13,7 @@ Begin at the root of the project
 1. Create a new virtual environment and upgrade pip
 1. Run `pip install ./src/pkg1` and `pip install ./src/pkg2`
 1. Run `pip install .`
-1. Run `python -m main`. You should get output like the below:
+1. Run `python src/main.py`. You should get output like the below:
 
     ```shell
     Thing One
